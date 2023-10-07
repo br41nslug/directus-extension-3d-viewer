@@ -1,3 +1,5 @@
+import { viewerAttributes } from "../utils/viewer-attributes";
+
 const renderPage = ({ title, options }) => `<html>
 <head>
     <title>${title}</title>
@@ -15,12 +17,11 @@ const renderPage = ({ title, options }) => `<html>
 
 export function registerViewerEndpoint(router) {
     router.get('/viewer/:file_id', (req, res) => {
-        const viewerOptions = {
-            src: `/assets/${req.params.file_id}?access_token=admin`,
+        const viewerOptions = viewerAttributes(req.params.file_id, {
             'camera-controls': 'camera_controls' in req.query ?? true,
             'auto-rotate': 'auto_rotate' in req.query ?? true,
-            'shadow-intensity': req.query.shadow_intensity ?? true,
-        };
+            'shadow-intensity': req.query.shadow_intensity ?? 1,
+        });
         const html = renderPage({
             title: 'TEST',
             options: viewerOptions

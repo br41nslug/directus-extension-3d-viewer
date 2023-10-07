@@ -1,14 +1,13 @@
 <template>
-	<input :value="currentValue?.file_id" placeholder="File UUID"  @input="handleChange($event.target.value)" />
-	<model-viewer v-if="currentValue?.file_id" v-bind="viewerAttributes">
+	<input :value="value?.file_id" placeholder="File UUID"  @input="handleChange($event.target.value)" />
+	<model-viewer v-if="value?.file_id" v-bind="viewerAttrs">
 	</model-viewer>
 </template>
 
 <script>
+import { viewerAttributes } from '../utils/viewer-attributes';
 import { useApi } from '@directus/extensions-sdk';
-import { computed } from 'vue';
-import { watch } from 'vue';
-import { reactive } from 'vue';
+import { toRefs, computed, unref, toRaw, watch } from 'vue';
 
 export default {
 	props: {
@@ -20,39 +19,24 @@ export default {
 	},
 	emits: ['input'],
 	setup(props, { emit }) {
-		const currentValue = reactive({
-			file_id: props.value?.file_id ?? null,
-			camera_controls: props.value?.camera_controls ?? props.camera_controls ?? true,
-			auto_rotate: props.value?.auto_rotate ?? props.auto_rotate ?? true,
-			shadow_intensity: props.value?.shadow_intensity ?? props.shadow_intensity ?? 1,
-			folder: props.folder ?? null,
+		const {
+			value, folder, camera_controls,
+			auto_rotate, shadow_intensity,
+		} = toRefs(props);
+
+		const viewerAttrs = computed(() => {
+			return viewerAttributes(value.value?.file_id, {
+				'camera-controls': camera_controls.value ?? value.value?.camera_controls ?? true,
+				'auto-rotate': auto_rotate.value ?? value.value?.auto_rotate ?? true,
+				'shadow-intensity': shadow_intensity.value ?? value.value?.shadow_intensity ?? 1,
+			})
 		});
-
-		const cleanObj = (o) => Object.fromEntries(Object.entries(o).filter(([_k, v]) => !!v));
-
-		const viewerAttributes = computed(() => {
-			const x = cleanObj({
-				src: `/assets/${currentValue.file_id}?access_token=admin`,
-				'camera-controls': currentValue.camera_controls ?? true,
-				'auto-rotate': currentValue.auto_rotate ?? true,
-				'shadow-intensity': currentValue.shadow_intensity ?? true,
-			});
-			console.log(x)
-			return x
-		});
-
-		watch(() => props.value, (value) => {
-			Object.keys(value).forEach((key) => {
-				currentValue[key] = value[key];
-			});
-		});
-
-		console.log('interf', props.value, currentValue);
+		
 		const api = useApi();
+		// console.log(api.options('/'));
+		console.log('interf', toRaw(unref(props)), unref(viewerAttrs));
 
-		console.log(api);
-
-		return { viewerAttributes, currentValue, handleChange };
+		return { viewerAttrs, value, handleChange };
 
 		function handleChange(value) {
 			currentValue.file_id = value;

@@ -1,9 +1,10 @@
 <template>
-	<model-viewer v-if="value?.file_id" v-bind="viewerAttributes">
+	<model-viewer v-if="value?.file_id" v-bind="viewerAttrs">
 	</model-viewer>
 </template>
 
 <script>
+import { viewerAttributes } from '../utils/viewer-attributes';
 import { unref, toRaw } from 'vue';
 
 export default {
@@ -26,15 +27,13 @@ export default {
 		},
 	},
 	setup(props) {
-		const cleanObj = (o) => Object.fromEntries(Object.entries(o).filter(([_k, v]) => !!v));
-		const viewerAttributes = cleanObj({
-			src: `/assets/${props.value?.file_id}?access_token=admin`,
+		const viewerAttrs = viewerAttributes(props.value?.file_id, {
 			'camera-controls': props.value?.camera_controls ?? props.camera_controls ?? true,
 			'auto-rotate': props.value?.auto_rotate ?? props.auto_rotate ?? true,
 			'shadow-intensity': props.value?.shadow_intensity ?? props.shadow_intensity ?? 1,
 		})
-		console.log('disp', toRaw(unref(props)), viewerAttributes);
-		return { viewerAttributes };
+		console.log('disp', toRaw(unref(props)), viewerAttrs);
+		return { viewerAttrs };
 	}
 };
 </script>
