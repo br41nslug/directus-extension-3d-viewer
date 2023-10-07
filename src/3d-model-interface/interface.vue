@@ -50,9 +50,13 @@ export default {
 
 		return { viewerAttrs, value, handleChange };
 
-		function handleChange(value) {
-			currentValue.file_id = value;
-			emit('input', currentValue);
+		function handleChange(val) {
+			if (value.value) {
+				value.value.file_id = val;
+			} else {
+				value.value = { file_id: val };
+			}
+			emit('input', value.value);
 		}
 	},
 };

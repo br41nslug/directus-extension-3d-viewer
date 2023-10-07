@@ -1,5 +1,7 @@
 <template>
-	<model-viewer v-if="value?.file_id" v-bind="viewerAttrs"></model-viewer>
+	<div class="model-container">
+		<model-viewer v-if="value?.file_id" v-bind="viewerAttrs"></model-viewer>
+	</div>
 </template>
 
 <script>
@@ -32,6 +34,7 @@ export default {
 			'camera-controls': props.value?.camera_controls ?? props.camera_controls ?? true,
 			'auto-rotate': props.value?.auto_rotate ?? props.auto_rotate ?? true,
 			'shadow-intensity': props.value?.shadow_intensity ?? props.shadow_intensity ?? 1,
+			'scale': '2 2 2',
 		})
 		console.log('disp', toRaw(unref(props)), viewerAttrs);
 		return { viewerAttrs };
@@ -39,7 +42,14 @@ export default {
 };
 </script>
 <style>
-model-viewer {
+.model-container {
+  width: 100%;
+  padding-bottom: 100%;
+  position: relative;
+}
+.model-container > model-viewer {
+	position: absolute;
+	top: 0; left: 0;
 	width: 100%;
 	height: 100%;
 }
