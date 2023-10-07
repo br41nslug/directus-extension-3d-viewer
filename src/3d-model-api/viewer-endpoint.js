@@ -4,6 +4,7 @@ const renderPage = ({ title, options }) => `<html>
 <head>
     <title>${title}</title>
     <script type="module" src="/3d-viewer/model-viewer.min.js"></script>
+    <script type="module" src="/3d-viewer/live-preview.js"></script>
     <style>body { margin: 0; padding: 0; } model-viewer { width: 100%; height: 100%; }</style>
 </head>
 <body>
@@ -17,7 +18,7 @@ const renderPage = ({ title, options }) => `<html>
 
 export function registerViewerEndpoint(router) {
     router.get('/viewer/:file_id', (req, res) => {
-        const viewerOptions = viewerAttributes(req.params.file_id, {
+        const viewerOptions = viewerAttributes(`/assets/${req.params.file_id}`, {
             'camera-controls': 'camera_controls' in req.query ?? true,
             'auto-rotate': 'auto_rotate' in req.query ?? true,
             'shadow-intensity': req.query.shadow_intensity ?? 1,

@@ -1,11 +1,12 @@
 <template>
-	<model-viewer v-if="value?.file_id" v-bind="viewerAttrs">
-	</model-viewer>
+	<model-viewer v-if="value?.file_id" v-bind="viewerAttrs"></model-viewer>
 </template>
 
 <script>
 import { viewerAttributes } from '../utils/viewer-attributes';
+import { getToken } from '../utils/get-token';
 import { unref, toRaw } from 'vue';
+import { useApi } from '@directus/extensions-sdk';
 
 export default {
 	props: {
@@ -27,7 +28,7 @@ export default {
 		},
 	},
 	setup(props) {
-		const viewerAttrs = viewerAttributes(props.value?.file_id, {
+		const viewerAttrs = viewerAttributes(`/assets/${props.value?.file_id}?access_token=${getToken(useApi())}`, {
 			'camera-controls': props.value?.camera_controls ?? props.camera_controls ?? true,
 			'auto-rotate': props.value?.auto_rotate ?? props.auto_rotate ?? true,
 			'shadow-intensity': props.value?.shadow_intensity ?? props.shadow_intensity ?? 1,
@@ -37,3 +38,9 @@ export default {
 	}
 };
 </script>
+<style>
+model-viewer {
+	width: 100%;
+	height: 100%;
+}
+</style>

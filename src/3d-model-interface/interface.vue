@@ -7,8 +7,9 @@
 
 <script>
 import { viewerAttributes } from '../utils/viewer-attributes';
+import { getToken } from '../utils/get-token';
 import { useApi } from '@directus/extensions-sdk';
-import { toRefs, computed, unref, toRaw, watch } from 'vue';
+import { toRefs, computed, unref, toRaw } from 'vue';
 
 export default {
 	props: {
@@ -35,19 +36,17 @@ export default {
 	emits: ['input'],
 	setup(props, { emit }) {
 		const {
-			value, folder, camera_controls,
+			value, /*folder, */camera_controls,
 			auto_rotate, shadow_intensity,
 		} = toRefs(props);
 
-		const viewerAttrs = computed(() => viewerAttributes(value.value?.file_id, {
+		const viewerAttrs = computed(() => viewerAttributes(`/assets/${value.value?.file_id}?access_token=${getToken(useApi())}`, {
 			'camera-controls': camera_controls.value ?? value.value?.camera_controls ?? true,
 			'auto-rotate': auto_rotate.value ?? value.value?.auto_rotate ?? true,
 			'shadow-intensity': shadow_intensity.value ?? value.value?.shadow_intensity ?? 1,
 		}));
 		
-		const api = useApi();
-		console.log(api.interceptors.request);
-		console.log('interf', toRaw(unref(props)), unref(viewerAttrs));
+		console.log('interf', JSON.stringify(unref(viewerAttrs), null , 2));
 
 		return { viewerAttrs, value, handleChange };
 

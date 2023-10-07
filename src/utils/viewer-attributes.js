@@ -4,11 +4,11 @@ export const VIEWER_DEFAULTS = {
     'shadow-intensity': 1,
 };
 
-export function viewerAttributes(file_id, options = {}) {
+export function viewerAttributes(source, options = {}) {
     const result = {
         ...VIEWER_DEFAULTS,
         ...options,
-        src: `/assets/${file_id}?access_token=admin`
+        src: source,
     }
     return Object.fromEntries(Object.entries(result).filter(([_k, v]) => !!v));
 }
