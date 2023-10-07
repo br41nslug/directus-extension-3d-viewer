@@ -1,6 +1,8 @@
 <template>
 	<input :value="value?.file_id" placeholder="File UUID"  @input="handleChange($event.target.value)" />
-	<model-viewer v-if="value?.file_id" v-bind="viewerAttrs"></model-viewer>
+	<div class="model-container">
+		<model-viewer v-if="value?.file_id" v-bind="viewerAttrs"></model-viewer>
+	</div>
 </template>
 
 <script>
@@ -56,3 +58,16 @@ export default {
 	},
 };
 </script>
+<style>
+.model-container {
+  width: 100%;
+  padding-bottom: 100%;
+  position: relative;
+}
+.model-container > model-viewer {
+	position: absolute;
+	top: 0; left: 0;
+	width: 100%;
+	height: 100%;
+}
+</style>
