@@ -1,16 +1,12 @@
 <template>
-	<input :value="currentValue?.file_id ?? ''" placeholder="File UUID"  @input="handleChange($event.target.value)" />
-	<model-viewer
-		v-if="currentValue?.file_id"
-		:src="'/assets/'+currentValue.file_id+'?access_token=admin'"
-		v-bind:camera-controls="!!currentValue.camera_controls"
-		v-bind:auto-rotate="!!currentValue.auto_rotate"
-		v-bind:shadow-intensity="+currentValue.shadow_intensity">
+	<input :value="currentValue?.file_id" placeholder="File UUID"  @input="handleChange($event.target.value)" />
+	<model-viewer v-if="currentValue?.file_id" v-bind="viewerAttributes">
 	</model-viewer>
 </template>
 
 <script>
 import { useApi } from '@directus/extensions-sdk';
+import { computed } from 'vue';
 import { watch } from 'vue';
 import { reactive } from 'vue';
 
@@ -32,6 +28,19 @@ export default {
 			folder: props.folder ?? null,
 		});
 
+		const cleanObj = (o) => Object.fromEntries(Object.entries(o).filter(([_k, v]) => !!v));
+
+		const viewerAttributes = computed(() => {
+			const x = cleanObj({
+				src: `/assets/${currentValue.file_id}?access_token=admin`,
+				'camera-controls': currentValue.camera_controls ?? true,
+				'auto-rotate': currentValue.auto_rotate ?? true,
+				'shadow-intensity': currentValue.shadow_intensity ?? true,
+			});
+			console.log(x)
+			return x
+		});
+
 		watch(() => props.value, (value) => {
 			Object.keys(value).forEach((key) => {
 				currentValue[key] = value[key];
@@ -43,7 +52,7 @@ export default {
 
 		console.log(api);
 
-		return { currentValue, handleChange };
+		return { viewerAttributes, currentValue, handleChange };
 
 		function handleChange(value) {
 			currentValue.file_id = value;

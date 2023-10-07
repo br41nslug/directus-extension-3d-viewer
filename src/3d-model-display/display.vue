@@ -1,10 +1,5 @@
 <template>
-	<model-viewer
-		v-if="value?.file_id"
-		:src="'/assets/'+value.file_id+'?access_token=admin'"
-		:camera-controls="!!value.camera_controls"
-		:auto-rotate="!!value.auto_rotate"
-		:shadow-intensity="+value.shadow_intensity">
+	<model-viewer v-if="value?.file_id" v-bind="viewerAttributes">
 	</model-viewer>
 </template>
 
@@ -31,7 +26,15 @@ export default {
 		},
 	},
 	setup(props) {
-		console.log('disp', toRaw(unref(props)));
+		const cleanObj = (o) => Object.fromEntries(Object.entries(o).filter(([_k, v]) => !!v));
+		const viewerAttributes = cleanObj({
+			src: `/assets/${props.value?.file_id}?access_token=admin`,
+			'camera-controls': props.value?.camera_controls ?? props.camera_controls ?? true,
+			'auto-rotate': props.value?.auto_rotate ?? props.auto_rotate ?? true,
+			'shadow-intensity': props.value?.shadow_intensity ?? props.shadow_intensity ?? 1,
+		})
+		console.log('disp', toRaw(unref(props)), viewerAttributes);
+		return { viewerAttributes };
 	}
 };
 </script>
