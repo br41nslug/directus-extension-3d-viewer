@@ -29,24 +29,34 @@ export default {
 			type: Number,
 			default: 1,
 		},
+		scale: {
+			type: String,
+			default: '1 1 1',
+		},
 		folder: {
 			type: String
+		},
+		custom: {
+			type: Object,
+			default: {},
 		},
 	},
 	emits: ['input'],
 	setup(props, { emit }) {
 		const {
 			value, /*folder, */camera_controls,
-			auto_rotate, shadow_intensity,
+			auto_rotate, shadow_intensity, scale, custom
 		} = toRefs(props);
 
 		const viewerAttrs = computed(() => viewerAttributes(`/assets/${value.value?.file_id}?access_token=${getToken(useApi())}`, {
-			'camera-controls': camera_controls.value ?? value.value?.camera_controls ?? true,
-			'auto-rotate': auto_rotate.value ?? value.value?.auto_rotate ?? true,
-			'shadow-intensity': shadow_intensity.value ?? value.value?.shadow_intensity ?? 1,
+			'camera-controls': camera_controls.value ?? value.value?.camera_controls,
+			'auto-rotate': auto_rotate.value ?? value.value?.auto_rotate,
+			'shadow-intensity': shadow_intensity.value ?? value.value?.shadow_intensity,
+			'scale': value?.scale ?? scale.value,
+			...(custom.value ?? {}),
 		}));
 		
-		console.log('interf', JSON.stringify(unref(viewerAttrs), null , 2));
+		console.log('interf', JSON.stringify(unref(viewerAttrs), null , 2), props.custom);
 
 		return { viewerAttrs, value, handleChange };
 

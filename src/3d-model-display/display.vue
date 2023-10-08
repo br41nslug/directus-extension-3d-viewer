@@ -28,15 +28,25 @@ export default {
 			type: Number,
 			default: 1,
 		},
+		scale: {
+			type: String,
+			default: '2 2 2',
+		},
+		custom: {
+			type: Object,
+			default: {},
+		},
 	},
 	setup(props) {
 		const viewerAttrs = viewerAttributes(`/assets/${props.value?.file_id}?access_token=${getToken(useApi())}`, {
-			'camera-controls': props.value?.camera_controls ?? props.camera_controls ?? true,
-			'auto-rotate': props.value?.auto_rotate ?? props.auto_rotate ?? true,
-			'shadow-intensity': props.value?.shadow_intensity ?? props.shadow_intensity ?? 1,
-			'scale': '2 2 2',
+			'camera-controls': props.value?.camera_controls ?? props.camera_controls,
+			'auto-rotate': props.value?.auto_rotate ?? props.auto_rotate,
+			'shadow-intensity': props.value?.shadow_intensity ?? props.shadow_intensity,
+			'scale': props.value?.scale ?? props.scale,
+			...(props.custom ?? {}),
 		})
-		console.log('disp', toRaw(unref(props)), viewerAttrs);
+
+		console.log('disp', toRaw(unref(props)), viewerAttrs, props.custom);
 		return { viewerAttrs };
 	}
 };

@@ -41,9 +41,35 @@ export default {
 			type: 'integer',
 			schema: {
 				default_value: 1,
+				placeholder: 1,
 			},
 			meta: {
 				interface: 'input',
+				placeholder: 1,
+			},
+		},
+		{
+			field: 'scale',
+			name: 'Scale',
+			type: 'string',
+			schema: {
+				default_value: '2 2 2',
+				default_value: '2 2 2',
+			},
+			meta: {
+				interface: 'input',
+				placeholder: '2 2 2',
+			},
+		},
+		{
+			field: 'custom',
+			name: 'Custom Properties',
+			type: 'json',
+			schema: {
+				default_value: '{}',
+			},
+			meta: {
+				interface: 'input-code',
 			},
 		},
 	],

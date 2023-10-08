@@ -36,6 +36,32 @@ export default {
 			},
 		},
 		{
+			field: 'shadow_intensity',
+			name: 'Shadow Intensity',
+			type: 'integer',
+			schema: {
+				default_value: 1,
+				placeholder: 1,
+			},
+			meta: {
+				interface: 'input',
+				width: 'half',
+			},
+		},
+		{
+			field: 'scale',
+			name: 'Scale',
+			type: 'string',
+			schema: {
+				default_value: '1 1 1',
+				placeholder: '1 1 1',
+			},
+			meta: {
+				interface: 'input',
+				width: 'half',
+			},
+		},
+		{
 			field: 'folder',
 			name: '$t:interfaces.system-folder.folder',
 			type: 'uuid',
@@ -46,15 +72,14 @@ export default {
 			},
 		},
 		{
-			field: 'shadow_intensity',
-			name: 'Shadow Intensity',
-			type: 'integer',
+			field: 'custom',
+			name: 'Custom Properties',
+			type: 'json',
 			schema: {
-				default_value: 1,
+				default_value: '{}',
 			},
 			meta: {
-				interface: 'input',
-				width: 'half',
+				interface: 'input-code',
 			},
 		},
 	],
