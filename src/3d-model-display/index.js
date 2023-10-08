@@ -41,11 +41,10 @@ export default {
 			type: 'integer',
 			schema: {
 				default_value: 1,
-				placeholder: 1,
 			},
 			meta: {
 				interface: 'input',
-				placeholder: 1,
+				width: 'half',
 			},
 		},
 		{
@@ -54,11 +53,10 @@ export default {
 			type: 'string',
 			schema: {
 				default_value: '2 2 2',
-				default_value: '2 2 2',
 			},
 			meta: {
 				interface: 'input',
-				placeholder: '2 2 2',
+				width: 'half',
 			},
 		},
 		{

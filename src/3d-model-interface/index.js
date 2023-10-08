@@ -41,7 +41,6 @@ export default {
 			type: 'integer',
 			schema: {
 				default_value: 1,
-				placeholder: 1,
 			},
 			meta: {
 				interface: 'input',
@@ -54,7 +53,6 @@ export default {
 			type: 'string',
 			schema: {
 				default_value: '1 1 1',
-				placeholder: '1 1 1',
 			},
 			meta: {
 				interface: 'input',

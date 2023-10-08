@@ -56,7 +56,7 @@ export default {
 			...(custom.value ?? {}),
 		}));
 		
-		console.log('interf', JSON.stringify(unref(viewerAttrs), null , 2), props.custom);
+		// console.log('interf', JSON.stringify(unref(viewerAttrs), null , 2), props.custom);
 
 		return { viewerAttrs, value, handleChange };
 

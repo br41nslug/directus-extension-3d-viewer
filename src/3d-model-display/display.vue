@@ -46,7 +46,7 @@ export default {
 			...(props.custom ?? {}),
 		})
 
-		console.log('disp', toRaw(unref(props)), viewerAttrs, props.custom);
+		// console.log('disp', toRaw(unref(props)), viewerAttrs, props.custom);
 		return { viewerAttrs };
 	}
 };
