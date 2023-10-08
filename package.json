@@ -48,5 +48,6 @@
 	"devDependencies": {
 		"@directus/extensions-sdk": "10.1.11",
 		"vue": "^3.3.4"
-	}
+	},
+	"license": "MIT"
 }
