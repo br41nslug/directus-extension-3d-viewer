@@ -4,7 +4,7 @@ export default {
 	id: '3d-model-interface',
 	name: '3D Model Viewer',
 	icon: 'box',
-	description: 'This is my custom interface!',
+	description: '3D Model Viewer Interface',
 	component: InterfaceComponent,
 	options: [
 		{

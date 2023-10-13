@@ -77,7 +77,6 @@
 		},
 	]" @update:model-value="handleChange($event)"></v-form>
 </template>
-
 <script>
 import { viewerAttributes } from '../utils/viewer-attributes';
 import { getToken } from '../utils/get-token';

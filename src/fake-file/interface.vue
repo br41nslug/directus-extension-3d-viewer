@@ -106,7 +106,6 @@
 		</v-dialog>
 	</div>
 </template>
-
 <script setup>
 import { useApi } from '@directus/extensions-sdk';
 import { watch, computed, ref } from 'vue';
@@ -206,7 +205,6 @@ function useURLImport() {
 	}
 }
 </script>
-
 <style scoped>
 .extension {
 	color: var(--primary);

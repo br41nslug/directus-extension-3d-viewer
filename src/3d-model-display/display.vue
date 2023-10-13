@@ -3,7 +3,6 @@
 		<model-viewer v-if="value?.file_id" v-bind="viewerAttrs"></model-viewer>
 	</div>
 </template>
-
 <script>
 import { viewerAttributes } from '../utils/viewer-attributes';
 import { getToken } from '../utils/get-token';
@@ -49,7 +48,7 @@ export default {
 	}
 };
 </script>
-<style>
+<style scoped>
 .model-container {
   width: 100%;
   padding-bottom: 100%;

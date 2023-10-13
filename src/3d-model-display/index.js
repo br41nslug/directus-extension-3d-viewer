@@ -4,7 +4,7 @@ export default {
 	id: '3d-model-display',
 	name: '3D Model Viewer',
 	icon: 'box',
-	description: 'This is my custom display!',
+	description: '3D Model Viewer Display',
 	component: DisplayComponent,
 	options: [
 		{
