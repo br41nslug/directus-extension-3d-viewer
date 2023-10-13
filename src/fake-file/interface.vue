@@ -17,8 +17,7 @@
 					>
 						<template #append>
 							<template v-if="file">
-								<v-icon v-tooltip="'Edit'" name="open_in_new" class="edit" @click.stop="editDrawerActive = true" />
-								<v-icon v-if="!disabled" v-tooltip="'Deselect'" class="deselect" name="close" @click.stop="remove" />
+								<v-icon v-if="!disabled" v-tooltip="'Deselect'" class="deselect" name="close" @click.stop="update(null)" />
 							</template>
 							<v-icon v-else name="attach_file" />
 						</template>
@@ -28,7 +27,7 @@
 
 			<v-list>
 				<template v-if="file">
-					<v-list-item clickable :download="file.filename_download" :href="getAssetUrl(file.id, true)">
+					<v-list-item clickable :download="file.filename_download">
 						<v-list-item-icon><v-icon name="get_app" /></v-list-item-icon>
 						<v-list-item-content>Download file</v-list-item-content>
 					</v-list-item>
@@ -59,22 +58,6 @@
 				</template>
 			</v-list>
 		</v-menu>
-
-		<drawer-item
-			v-if="file"
-			v-model:active="editDrawerActive"
-			collection="directus_files"
-			:primary-key="file.id"
-			:edits="edits"
-			:disabled="disabled"
-			@input="update"
-		>
-			<template #actions>
-				<v-button secondary rounded icon :download="file.filename_download" :href="getAssetUrl(file.id, true)">
-					<v-icon name="download" />
-				</v-button>
-			</template>
-		</drawer-item>
 
 		<v-dialog
 			:model-value="activeDialog === 'upload'"
@@ -126,10 +109,10 @@
 
 <script setup>
 import { useApi } from '@directus/extensions-sdk';
-import { onMounted } from 'vue';
-import { computed, ref } from 'vue';
+import { watch, computed, ref } from 'vue';
 
 const api = useApi();
+const emit = defineEmits(['input']);
 
 const props = defineProps({
 	value: Object,
@@ -143,33 +126,21 @@ const props = defineProps({
 	},
 });
 
-const emit = defineEmits(['input']);
-
-const value = computed({
-	get: () => props.value,
-	set: (value) => {
-		emit('input', value);
-	},
-});
-
 const file = ref(null);
-
-onMounted(async () => {
-	if (!props.value) return;
-	file.value = await getFileData(props.value);
-})
-
 const activeDialog = ref(null);
+
+watch(() => props.value, init)
+init(props.value);
 
 const { url, isValidURL, loading: urlLoading, importFromURL } = useURLImport();
 
-const editDrawerActive = ref(false);
-
-const edits = computed(() => {
-	if (!props.value || typeof props.value !== 'object') return {};
-
-	return props.value;
-});
+function init(value) {
+	console.log('init', value)
+	if (!value) return;
+	getFileData(value).then(data => {
+		file.value = data;
+	});
+}
 
 async function getFileData(file_id) {
 	if (!file_id) return null;
@@ -182,20 +153,14 @@ async function getFileData(file_id) {
 }
 
 async function update(file_id) {
-	console.log('setting', file_id);
+	emit('input', file_id);
 	if (file_id !== file.value?.id) {
 		file.value = await getFileData(file_id);
 	}
-	value.value = file_id;
 }
 
 function setSelection(selection) {
-	if (selection[0]) {
-		update(selection[0]);
-	} else {
-		console.error('not suer', selection)
-		// remove();
-	}
+	if (selection[0]) update(selection[0]);
 }
 
 function onUpload(fileInfo) {
@@ -236,7 +201,6 @@ function useURLImport() {
 			url.value = '';
 			update(file.value?.id);
 		} catch (err) {
-			unexpectedError(err);
 		} finally {
 			loading.value = false;
 		}
@@ -245,40 +209,6 @@ function useURLImport() {
 </script>
 
 <style scoped>
-.preview {
-	--v-icon-color: var(--foreground-subdued);
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 40px;
-	height: 40px;
-	margin-left: -8px;
-	overflow: hidden;
-	background-color: var(--background-normal);
-	border-radius: var(--border-radius);
-
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	&.has-file {
-		background-color: var(--primary-alt);
-	}
-
-	&.is-svg {
-		padding: 4px;
-		background-color: var(--background-normal-alt);
-
-		img {
-			object-fit: contain;
-			filter: drop-shadow(0px 0px 8px rgb(0 0 0 / 0.25));
-		}
-	}
-}
-
 .extension {
 	color: var(--primary);
 	font-weight: 600;
@@ -288,12 +218,5 @@ function useURLImport() {
 
 .deselect:hover {
 	--v-icon-color: var(--danger);
-}
-
-.edit {
-	margin-right: 4px;
-}
-.edit:hover {
-	--v-icon-color: var(--foreground-normal);
 }
 </style>
