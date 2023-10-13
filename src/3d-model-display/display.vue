@@ -7,7 +7,6 @@
 <script>
 import { viewerAttributes } from '../utils/viewer-attributes';
 import { getToken } from '../utils/get-token';
-import { unref, toRaw } from 'vue';
 import { useApi } from '@directus/extensions-sdk';
 
 export default {
@@ -46,7 +45,6 @@ export default {
 			...(props.custom ?? {}),
 		})
 
-		// console.log('disp', toRaw(unref(props)), viewerAttrs, props.custom);
 		return { viewerAttrs };
 	}
 };
