@@ -2,7 +2,6 @@
 	"name": "directus-extension-3d-viewer",
 	"version": "1.0.0",
 	"type": "module",
-	"author": "brainslug",
 	"directus:extension": {
 		"host": "^10.1.11",
 		"type": "bundle",
@@ -30,9 +29,15 @@
 				"type": "endpoint",
 				"name": "3d-model-api",
 				"source": "src/3d-model-api/index.js"
+			},
+			{
+				"type": "interface",
+				"name": "fake-file",
+				"source": "src/fake-file/index.js"
 			}
 		]
 	},
+	"author": "brainslug",
 	"description": "Please enter a description for your extension",
 	"icon": "extension",
 	"keywords": [
