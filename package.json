@@ -16,6 +16,11 @@
 				"source": "src/3d-model-loader/index.js"
 			},
 			{
+				"type": "endpoint",
+				"name": "3d-model-api",
+				"source": "src/3d-model-api/index.js"
+			},
+			{
 				"type": "interface",
 				"name": "3d-model-interface",
 				"source": "src/3d-model-interface/index.js"
@@ -26,9 +31,9 @@
 				"source": "src/3d-model-display/index.js"
 			},
 			{
-				"type": "endpoint",
-				"name": "3d-model-api",
-				"source": "src/3d-model-api/index.js"
+				"type": "panel",
+				"name": "3d-model-panel",
+				"source": "src/3d-model-panel/index.js"
 			},
 			{
 				"type": "interface",
@@ -38,7 +43,7 @@
 		]
 	},
 	"author": "brainslug",
-	"description": "Please enter a description for your extension",
+	"description": "Implements various frontend extensions for 3d models.",
 	"icon": "extension",
 	"keywords": [
 		"directus",
