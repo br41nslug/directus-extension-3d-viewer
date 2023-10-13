@@ -3,40 +3,19 @@
 		<model-viewer v-bind="viewerAttrs"></model-viewer>
 	</div>
 	
-	<component is="interface-input" v-if="!fileId" v-model="fileId" @update:model-value="handleChange2($event)"></component>
-
-	<v-detail v-model="detailOpen" :start-open="false" class="group-detail">
-		<template #activator="{ toggle, active }">
-			<v-divider
-				:class="{ active }"
-				:inline-title="false"
-				large
-				@click="toggle"
-			>
-				<template v-if="group_label">
-					<span class="title">{{ group_label }}</span>
-				</template>
-				<v-icon class="expand-icon" name="expand_more" />
-			</v-divider>
-		</template>
-
-		<component is="interface-input" v-if="!fileId" v-model="fileId" @update:model-value="handleChange2($event)"></component>
-
-		<component is="interface-boolean" label="$t:enable_select_button"></component>
-
-		<component is="interface-boolean" label="$t:enable_select_button"></component>
-
-		<component is="interface-input"></component>
-
-		<component is="interface-input"></component>
-	</v-detail>
 	<v-form :model-value="value" :fields="[
+		{
+			field: 'file_id',
+			name: 'Model File',
+			meta: {
+				interface: 'fake-file',
+				options: { folder: folder },
+				group: 'advanced',
+			}
+		},
 		{
 			field: 'camera_controls',
 			name: 'Camera Controls',
-			schema: {
-				default_value: true,
-			},
 			meta: {
 				interface: 'boolean',
 				options: {
@@ -49,9 +28,6 @@
 		{
 			field: 'auto_rotate',
 			name: 'Auto Rotate',
-			schema: {
-				default_value: true,
-			},
 			meta: {
 				interface: 'boolean',
 				options: {
@@ -90,13 +66,13 @@
 		{
 			field: 'advanced',
 			type: 'alias',
-			name: '3D Model Options',
+			name: group_label,
 			schema: null,
 			meta: {
 				field: 'advanced',
 				special: ['alias', 'no-data', 'group'],
 				interface: 'group-detail',
-				options: { start: !fileId ? 'open' : 'closed' },
+				options: { start: settingsOpen },
 			},
 		},
 	]" @update:model-value="handleChange($event)"></v-form>
@@ -106,8 +82,8 @@
 import { viewerAttributes } from '../utils/viewer-attributes';
 import { getToken } from '../utils/get-token';
 import { useApi } from '@directus/extensions-sdk';
-import { toRefs, computed, unref, toRaw } from 'vue';
-import { ref } from 'vue';
+import { ref, computed, } from 'vue';
+import { watch } from 'vue';
 
 export default {
 	props: {
@@ -145,16 +121,19 @@ export default {
 	},
 	emits: ['input'],
 	setup(props, { emit }) {
-		// const {
-		// 	value, /*folder, */camera_controls,
-		// 	auto_rotate, shadow_intensity, scale, custom
-		// } = toRefs(props);
 		const fileId = ref(props.value?.file_id ?? null);
 		const cameraControls = ref(props.value?.camera_controls ?? props.camera_controls);
 		const autoRotate = ref(props.value?.auto_rotate ?? props.auto_rotate);
 		const shadowIntensity = ref(props.value?.shadow_intensity ?? props.shadow_intensity);
 		const modelScale = ref(props.value?.scale ?? props.scale);
 
+		watch(() => props.value, (val) => {
+			if ('file_id' in val) fileId.value = val.file_id;
+			if ('camera_controls' in val) cameraControls.value = val.camera_controls;
+			if ('auto_rotate' in val) autoRotate.value = val.auto_rotate;
+			if ('shadow_intensity' in val) shadowIntensity.value = val.shadow_intensity;
+			if ('scale' in val) modelScale.value = val.scale;
+		});
 
 		const viewerAttrs = computed(() => viewerAttributes(`/assets/${fileId.value}?access_token=${getToken(useApi())}`, {
 			'camera-controls': cameraControls.value,
@@ -164,24 +143,12 @@ export default {
 			...(props.custom ?? {}),
 		}));
 
-		return { viewerAttrs, fileId, cameraControls, autoRotate, shadowIntensity, modelScale, handleChange };
+		const settingsOpen = computed(() => !fileId.value ? 'open' : 'closed')
 
-		function handleChange2(val) {
-			console.log(val);
-		}
+		return { viewerAttrs, fileId, settingsOpen, handleChange };
 
 		function handleChange(val) {
-			// Object.keys(val).forEach(key => {
-			// 	internalValue[key] = val[key];
-			// })
-			// console.log(val, toRaw(internalValue));
 			emit('input', { ...props.value, ...val });
-			// if (value.value) {
-			// 	value.value.file_id = val;
-			// } else {
-			// 	value.value = { file_id: val };
-			// }
-			// emit('input', value.value);
 		}
 	},
 };
@@ -199,9 +166,9 @@ export default {
 	height: 100%;
 }
 
-/* .v-form {
-	padding-top: calc(var(--form-vertical-gap) / 2);
-} */
+.v-form {
+	padding-top: var(--content-padding);
+}
 
 .v-divider {
 	cursor: pointer;

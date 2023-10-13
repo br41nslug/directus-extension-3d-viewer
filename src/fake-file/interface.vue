@@ -135,7 +135,6 @@ init(props.value);
 const { url, isValidURL, loading: urlLoading, importFromURL } = useURLImport();
 
 function init(value) {
-	console.log('init', value)
 	if (!value) return;
 	getFileData(value).then(data => {
 		file.value = data;

@@ -8,6 +8,16 @@ export default {
 	component: InterfaceComponent,
 	options: [
 		{
+			field: 'group_label',
+			name: 'Settings Label',
+			schema: {
+				default_value: '3D Model Options',
+			},
+			meta: {
+				interface: 'input',
+			},
+		},
+		{
 			field: 'camera_controls',
 			name: 'Camera Controls',
 			schema: {
