@@ -1,6 +1,6 @@
 {
 	"name": "directus-extension-3d-viewer",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "module",
 	"directus:extension": {
 		"host": "^10.1.11",
@@ -56,8 +56,12 @@
 		"dev": "directus-extension build -w --no-minify"
 	},
 	"devDependencies": {
-		"@directus/extensions-sdk": "10.1.11",
-		"vue": "^3.3.4"
+		"@directus/extensions-sdk": "11.0.1",
+		"vue": "^3.4.21"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/br41nslug/directus-extension-3d-viewer.git"
 	},
 	"license": "MIT"
 }
