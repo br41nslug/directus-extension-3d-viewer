@@ -10,7 +10,7 @@ With this endpoint you'll get a full page 3d model viewer which can be embedded 
 
 Camera Control | Auto Rotate
 :-------------:|:---------------:
-![Endpoint Tank GIF](images/endpoint_tank.gif) | ![Endpoint Dino GIF](images/endpoint_dino.gif)
+![Endpoint Tank GIF](https://raw.githubusercontent.com/br41nslug/directus-extension-3d-viewer/master/images/endpoint_tank.gif) | ![Endpoint Dino GIF](https://raw.githubusercontent.com/br41nslug/directus-extension-3d-viewer/master/images/endpoint_dino.gif)
 
 ```http
 GET /3d-viewer/viewer/<file-uuid>?options
@@ -32,7 +32,7 @@ GET /3d-viewer/viewer/bedfcb8b-1463-43e9-831e-45fd60f985f8
 
 ### Usage for Live Preview
 
-![](images/endpoint_live_preview.png)
+![](https://raw.githubusercontent.com/br41nslug/directus-extension-3d-viewer/master/images/endpoint_live_preview.png)
 where the "3D Model" field is a "File" relationship (or an input with a valid file UUID will do too)
 
 ## Model Viewer Interface
@@ -40,15 +40,15 @@ This interface enables you to render 3d models on a Directus detail page. When s
 
 Interface Options | Item Values
 :----------------:|:---------------:
-![Interface Options GIF](images/interface_options.gif) | ![Interface Item Values GIF](images/interface_item.gif)
-![Interface Options PNG](images/interface_options.png) | ![Interface Item Values PNG](images/interface_item.png)
+![Interface Options GIF](https://raw.githubusercontent.com/br41nslug/directus-extension-3d-viewer/master/images/interface_options.gif) | ![Interface Item Values GIF](images/interface_item.gif)
+![Interface Options PNG](https://raw.githubusercontent.com/br41nslug/directus-extension-3d-viewer/master/images/interface_options.png) | ![Interface Item Values PNG](images/interface_item.png)
 
 ## Model Viewer Display
 This display enables you to render 3d models on a Directus overview page. This takes a fair amount of resources so would not recommend this for pages with more than a few 3d model refrences.
 
 Overview Page | Display Options
 :------------:|:---------------:
-![Overview Page GIF](images/display_overview.gif) | ![Display Options GIF](images/display_options.png)
+![Overview Page GIF](https://raw.githubusercontent.com/br41nslug/directus-extension-3d-viewer/master/images/display_overview.gif) | ![Display Options GIF](https://raw.githubusercontent.com/br41nslug/directus-extension-3d-viewer/master/images/display_options.png)
 
 
 ## Model Viewer Panel
@@ -56,4 +56,4 @@ This panel enables you to render 3d models on a Directus insights panel.
 
 Panel Example | Panel Options
 :------------:|:---------------:
-![Panel Boat GIF](images/panel_boat.gif) | ![Panel Options PNG](images/panel_options.png)
+![Panel Boat GIF](https://raw.githubusercontent.com/br41nslug/directus-extension-3d-viewer/master/images/panel_boat.gif) | ![Panel Options PNG](https://raw.githubusercontent.com/br41nslug/directus-extension-3d-viewer/master/images/panel_options.png)
