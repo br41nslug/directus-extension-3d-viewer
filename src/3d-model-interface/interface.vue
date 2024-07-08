@@ -134,7 +134,8 @@ export default {
 			if ('scale' in val) modelScale.value = val.scale;
 		});
 
-		const viewerAttrs = computed(() => viewerAttributes(`/assets/${fileId.value}?access_token=${getToken(useApi())}`, {
+		const params = getToken(useApi()) ? `?access_token=${getToken(useApi())}` : ""
+		const viewerAttrs = computed(() => viewerAttributes(`/assets/${fileId.value}${params}`, {
 			'camera-controls': cameraControls.value,
 			'auto-rotate': autoRotate.value,
 			'shadow-intensity': shadowIntensity.value,

@@ -36,7 +36,8 @@ export default {
 		},
 	},
 	setup(props) {
-		const viewerAttrs = viewerAttributes(`/assets/${props.value?.file_id}?access_token=${getToken(useApi())}`, {
+		const params = `?access_token=${getToken(useApi())}`
+		const viewerAttrs = viewerAttributes(`/assets/${props.value?.file_id}${params}`, {
 			'camera-controls': props.value?.camera_controls ?? props.camera_controls,
 			'auto-rotate': props.value?.auto_rotate ?? props.auto_rotate,
 			'shadow-intensity': props.value?.shadow_intensity ?? props.shadow_intensity,
