@@ -5,8 +5,9 @@ All of the extensions expect the 3d model files to be uploaded to the Directus F
 
 This extension relies on Directus version 10.10.0 or newer.
 
-> Note: I've only tested this with *.glb 3d files! It may work with other formats but no guarantees.
+> Tested with v10.13.0
 
+> Note: I've only tested this with *.glb 3d files! It may work with other formats but no guarantees.
 
 ## Model Viewer Endpoint
 With this endpoint you'll get a full page 3d model viewer which can be embedded as an iframe almost anywhere. The model viewer settings are configured based on url query parameters.
