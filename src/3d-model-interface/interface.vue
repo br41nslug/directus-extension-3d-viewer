@@ -79,8 +79,6 @@
 </template>
 <script>
 import { viewerAttributes } from '../utils/viewer-attributes';
-import { getToken } from '../utils/get-token';
-import { useApi } from '@directus/extensions-sdk';
 import { ref, computed, } from 'vue';
 import { watch } from 'vue';
 
@@ -134,7 +132,7 @@ export default {
 			if ('scale' in val) modelScale.value = val.scale;
 		});
 
-		const viewerAttrs = computed(() => viewerAttributes(`/assets/${fileId.value}?access_token=${getToken(useApi())}`, {
+		const viewerAttrs = computed(() => viewerAttributes(`/assets/${fileId.value}`, {
 			'camera-controls': cameraControls.value,
 			'auto-rotate': autoRotate.value,
 			'shadow-intensity': shadowIntensity.value,

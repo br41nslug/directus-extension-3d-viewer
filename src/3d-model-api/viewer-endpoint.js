@@ -4,7 +4,6 @@ const renderPage = ({ title, options }) => `<html>
 <head>
     <title>${title}</title>
     <script type="module" src="/3d-viewer/model-viewer.min.js"></script>
-    <script type="module" src="/3d-viewer/live-preview.js"></script>
     <style>body { margin: 0; padding: 0; } model-viewer { width: 100%; height: 100%; }</style>
 </head>
 <body>

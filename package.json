@@ -1,9 +1,9 @@
 {
 	"name": "directus-extension-3d-viewer",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"type": "module",
 	"directus:extension": {
-		"host": "^10.1.11",
+		"host": "^10.10.0",
 		"type": "bundle",
 		"path": {
 			"app": "dist/app.js",
@@ -56,8 +56,8 @@
 		"dev": "directus-extension build -w --no-minify"
 	},
 	"devDependencies": {
-		"@directus/extensions-sdk": "11.0.1",
-		"vue": "^3.4.21"
+		"@directus/extensions-sdk": "11.0.9",
+		"vue": "^3.4.31"
 	},
 	"repository": {
 		"type": "git",

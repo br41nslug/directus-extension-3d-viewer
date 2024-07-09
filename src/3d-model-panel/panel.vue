@@ -5,8 +5,6 @@
 </template>
 <script>
 import { viewerAttributes } from '../utils/viewer-attributes';
-import { getToken } from '../utils/get-token';
-import { useApi } from '@directus/extensions-sdk';
 
 export default {
 	props: {
@@ -36,7 +34,7 @@ export default {
 		},
 	},
 	setup(props) {
-		const viewerAttrs = viewerAttributes(`/assets/${props.file_id}?access_token=${getToken(useApi())}`, {
+		const viewerAttrs = viewerAttributes(`/assets/${props.file_id}`, {
 			'camera-controls': props.camera_controls,
 			'auto-rotate': props.auto_rotate,
 			'shadow-intensity': props.shadow_intensity,
