@@ -3,6 +3,10 @@
 This extension embeds [`<model-viewer>`](https://modelviewer.dev/) into Directus as `interface`, `display`, `panel` andf `endpoint` (for use with live previews). These extensions will all render a 3d model in various places of the Directus UI.
 All of the extensions expect the 3d model files to be uploaded to the Directus File storage.
 
+This extension relies on Directus version 10.10.0 or newer.
+
+> Tested with v10.13.0
+
 > Note: I've only tested this with *.glb 3d files! It may work with other formats but no guarantees.
 
 ## Model Viewer Endpoint
